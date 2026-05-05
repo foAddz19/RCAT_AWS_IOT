@@ -1,12 +1,11 @@
 #include <Arduino.h>
-
+#include <ArduinoOTA.h>
 #define BLYNK_PRINT Serial
 #include <WiFi.h>
 #include <BlynkSimpleEsp32.h>
 #include <HTTPClient.h>
 #include <time.h> 
 #include <esp_task_wdt.h> 
-
 #define WDT_TIMEOUT 15 
 
 // ==========================================
@@ -153,7 +152,7 @@ void setup() {
 
   Blynk.config(auth, blynk_server, blynk_port);
   if (WiFi.status() == WL_CONNECTED) {
-    Blynk.connect(); //addz
+    Blynk.connect(); 
   }
   
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
@@ -169,6 +168,10 @@ void setup() {
   startupMsg += "วิทยาลัยเกษตรและเทคโนโลยีร้อยเอ็ด";
   sendLinePush(startupMsg);
   */
+
+  ArduinoOTA.setHostname("rcat-weather-station");
+  ArduinoOTA.setPassword("Aswaddee");
+  ArduinoOTA.begin();
 }
 
 void loop() {
@@ -241,4 +244,5 @@ void loop() {
       lastReportedDay = timeinfo.tm_mday; 
     }
   }
+  ArduinoOTA.handle();
 }
