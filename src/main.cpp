@@ -153,7 +153,7 @@ void setup() {
 
   Blynk.config(auth, blynk_server, blynk_port);
   if (WiFi.status() == WL_CONNECTED) {
-    Blynk.connect();
+    Blynk.connect(); //addz
   }
   
   configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
